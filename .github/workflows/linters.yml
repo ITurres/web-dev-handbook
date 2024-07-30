@@ -1,0 +1,52 @@
+name: Linters
+
+on:
+  push:
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+      - name: Setup ESLint
+        run: |
+          npm install --save-dev eslint@8 @typescript-eslint/parser@5 @typescript-eslint/eslint-plugin@5
+      - name: ESLint Report
+        run: npx eslint --ext .ts,.tsx .
+
+  stylelint:
+    name: Stylelint
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+      - name: Setup Stylelint
+        run: |
+          npm install --save-dev stylelint@13 stylelint-scss@3 stylelint-config-standard@21 stylelint-csstree-validator@1
+          [ -f .stylelintrc.json ] || wget https://raw.githubusercontent.com/microverseinc/linters-config/master/react-redux/.stylelintrc.json
+      - name: Stylelint Report
+        run: npx stylelint "**/*.{css,scss}"
+
+  nodechecker:
+    name: node_modules checker
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check node_modules existence
+        run: |
+          if [ -d "node_modules/" ] || [ -f "yarn.lock" ]; then
+            echo -e "\e[1;31mThe node_modules/ folder or yarn.lock file was pushed to the repo. Please remove them from the GitHub repository and try again."
+            echo -e "\e[1;32mYou can set up a .gitignore file with these files included to prevent this from happening in the future."
+            exit 1
+          fi
