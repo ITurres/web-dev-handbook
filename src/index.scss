@@ -1,1 +1,64 @@
-// *
+@use './styles/variables/vars' as vars;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+$font-family: 'Roboto', sans-serif;
+
+// stylelint-disable csstree/validator
+
+body {
+  .card {
+    border-radius: vars.$border-radius;
+  }
+
+  font-family: $font-family;
+}
+
+body:has(option[value='light']:checked) {
+  background-color: vars.$bg-light-color;
+  color: vars.$text-light-color;
+
+  .card {
+    background-color: vars.$card-light-bg;
+    box-shadow:
+      12px 12px 16px 0 rgba(0, 0, 0, 0.1),
+      -10px -10px 10px vars.$bg-light-color;
+  }
+}
+
+body:has(option[value='dark']:checked) {
+  background-color: vars.$bg-dark-color;
+  color: vars.$text-dark-color;
+
+  .card {
+    background-color: vars.$card-dark-bg;
+    box-shadow:
+      12px 12px 16px 0 rgba(15, 15, 15, 1),
+      10px 10px 10px vars.$bg-dark-color;
+  }
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 10px;
+  text-transform: capitalize;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    scale: 1.1;
+  }
+}
+
+.btn-theme-color-1 {
+  background-color: vars.$theme-color-1;
+  color: vars.$text-light-color;
+}
+
+.btn-theme-color-2 {
+  background-color: vars.$theme-color-2;
+  color: vars.$text-dark-color;
+}
