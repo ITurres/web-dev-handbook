@@ -5,6 +5,7 @@ import './App.scss';
 
 import Layout from './components/Layout/Layout';
 import BrowserStorageService from './services/browserStorage.service';
+import SplashPage from './pages/SplashPage';
 
 function App() {
   const isUserFirstTimeStorageKey = 'isUserFirstTime';
@@ -33,19 +34,7 @@ function App() {
   return (
     <>
       {isUserFirstTime ? (
-        <div>
-          <h1>Welcome to Arthur&apos;s Web Dev Handbook</h1>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste
-            aperiam sed consequuntur consectetur omnis eum voluptatibus
-            excepturi quaerat quae earum repellendus alias voluptate rem, dolor
-            minima atque explicabo ipsa aspernatur.
-          </p>
-
-          <button type="button" onClick={handleAccess}>
-            Access
-          </button>
-        </div>
+        <SplashPage handleAccess={handleAccess} />
       ) : (
         <HashRouter>
           <Routes>
